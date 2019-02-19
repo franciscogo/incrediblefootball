@@ -8,13 +8,13 @@ import Loading from './Loading';
 
 const Information = (props) => {
   const information = useConnection(props, `http://api.football-data.org/v2/competitions/${props.id}/?plan=TIER_ONE`);
-  console.log(information)
   return (
     <React.Fragment>
       {information ? (
         <React.Fragment>
           <Helmet>
             <title>{information.name} - {information.area.name} | IncredibleFootball</title>
+            <meta name="description" content={`${information.area.name} - ${information.name} results, standings and top scorers!`} />
           </Helmet>
           <Section title={`${information.name} - ${information.area.name}`}>
             <Box>
