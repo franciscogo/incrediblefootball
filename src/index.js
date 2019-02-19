@@ -1,8 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Routes from './routes';
+import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+
+import Container from './components/Container';
+import Header from './components/Header';
+
+function App () {
+  return (
+    <Container p={[ 3, 4 ]}>
+      <Router>
+        <React.Fragment>
+          <Header />
+          <Routes />
+        </React.Fragment>
+      </Router>
+    </Container>
+  )
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
