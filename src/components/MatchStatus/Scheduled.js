@@ -1,23 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Flex, Text } from 'rebass';
 
-function Scheduled (props) {
-  const { item, index } = props;
+function Scheduled(props) {
+  const { homeTeamName, awayTeamName } = props;
   return (
-    <React.Fragment key={index}>
-      <Flex flexWrap='wrap' alignItems='center' flexDirection='row' mb={3}>
-        <Box width={[ 4/12, 5/12 ]}>
-          <Text textAlign={['left', 'right']}>{item.homeTeam.name}</Text>
+    <>
+      <Flex flexWrap="wrap" alignItems="center" flexDirection="row" mb={3}>
+        <Box width={[4 / 12, 5 / 12]}>
+          <Text textAlign={['left', 'right']}>{homeTeamName}</Text>
         </Box>
-        <Box width={[ 4/12, 2/12 ]}>
-          <Text textAlign='center'>vs</Text>
+        <Box width={[4 / 12, 2 / 12]}>
+          <Text textAlign="center">vs</Text>
         </Box>
-        <Box width={[ 4/12, 5/12 ]} order={[1, 2]}>
-          <Text textAlign={['right', 'left']}>{item.awayTeam.name}</Text>
+        <Box width={[4 / 12, 5 / 12]} order={[1, 2]}>
+          <Text textAlign={['right', 'left']}>{awayTeamName}</Text>
         </Box>
       </Flex>
-    </React.Fragment>
-  )
+    </>
+  );
 }
+
+Scheduled.propTypes = {
+  homeTeamName: PropTypes.string.isRequired,
+  awayTeamName: PropTypes.string.isRequired,
+};
 
 export default Scheduled;

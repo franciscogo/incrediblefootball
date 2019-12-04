@@ -1,48 +1,91 @@
 import React from 'react';
-import useConnection from './../utils';
+import PropTypes from 'prop-types';
+import useConnection from '../utils';
 import Section from './Section';
-import Finished from './MatchStatus/Finished';
 import Scheduled from './MatchStatus/Scheduled';
-import InPlay from './MatchStatus/InPlay';
 import Generic from './MatchStatus/Generic';
+import Game from './MatchStatus/Game';
 import Loading from './Loading';
 
-function handleMatchStatus (item, index) {
+function handleMatchStatus(item, index) {
   switch (item.status) {
     case 'SCHEDULED':
-      return <Scheduled item={item} key={index} />
+      return (
+        <Scheduled
+          homeTeamName={item.homeTeam.name}
+          awayTeamName={item.awayTeam.name}
+          key={index}
+        />
+      );
     case 'POSTPONED':
-      return <Generic item={item} key={index} status="Postponed" />
+      return (
+        <Generic
+          homeTeamName={item.homeTeam.name}
+          awayTeamName={item.awayTeam.name}
+          key={index}
+          status="Postponed"
+        />
+      );
     case 'SUSPENDED':
-      return <Generic item={item} key={index} status="Suspended" />
+      return (
+        <Generic
+          homeTeamName={item.homeTeam.name}
+          awayTeamName={item.awayTeam.name}
+          key={index}
+          status="Suspended"
+        />
+      );
     case 'CANCELED':
-      return <Generic item={item} key={index} status="Canceled" />
+      return <Generic item={item} key={index} status="Canceled" />;
     case 'IN_PLAY':
-      return <InPlay item={item} key={index} />
+      return (
+        <Game
+          homeTeamName={item.homeTeam.name}
+          scoreHomeTeamFullTime={item.score.fullTime.homeTeam}
+          awayTeamName={item.awayTeam.name}
+          scoreAwayTeamFullTime={item.score.fullTime.awayTeam}
+          winner={item.score.winner}
+          status="IN_PLAY"
+          index={item.id}
+          key={index}
+        />
+      );
     case 'FINISHED':
-      return <Finished item={item} key={index}/>
+      return (
+        <Game
+          homeTeamName={item.homeTeam.name}
+          scoreHomeTeamFullTime={item.score.fullTime.homeTeam}
+          awayTeamName={item.awayTeam.name}
+          scoreAwayTeamFullTime={item.score.fullTime.awayTeam}
+          winner={item.score.winner}
+          status="FINISHED"
+          index={item.id}
+          key={index}
+        />
+      );
     default:
-      console.log(`Error loading ${item}`);
+      return (`Error loading ${item}`);
   }
 }
 
-function Results (props) {
-  const results = useConnection(props, `https://api.football-data.org/v2/competitions/${props.id}/matches?matchday=${props.matchDay}`)
+function Results(props) {
+  const { id, matchDay } = props;
+  const results = useConnection(`https://api.football-data.org/v2/competitions/${id}/matches?matchday=${matchDay}`);
+
+  if (results === null) {
+    return <Loading />;
+  }
+
   return (
-    <React.Fragment>
-      {results ? (
-        <React.Fragment>
-          <Section title='Results' width={[ 1 ]}>
-            {results.matches.map((item, index) => 
-              handleMatchStatus(item, index)
-            )}
-          </Section>
-        </React.Fragment>
-      ) : (
-        <Loading />
-      )}
-    </React.Fragment>
-  )
+    <Section title="Results">
+      {results.matches.map((item, index) => handleMatchStatus(item, index))}
+    </Section>
+  );
 }
+
+Results.propTypes = {
+  id: PropTypes.string.isRequired,
+  matchDay: PropTypes.number.isRequired,
+};
 
 export default Results;

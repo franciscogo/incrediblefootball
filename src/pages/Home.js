@@ -1,8 +1,8 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import Loading from './../components/Loading';
+import React from "react";
+import { Helmet } from "react-helmet";
+import Loading from "./../components/Loading";
 
-const Leagues = React.lazy(() => import('./../components/Leagues'));
+const Leagues = React.lazy(() => import("./../components/Leagues"));
 
 function Home () {
   return (

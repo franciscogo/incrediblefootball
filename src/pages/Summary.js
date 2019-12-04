@@ -1,9 +1,9 @@
-import React from 'react';
-import Loading from './../components/Loading';
+import React from "react";
+import Loading from "./../components/Loading";
 
-const Information = React.lazy(() => import('./../components/Information'));
-const Standing = React.lazy(() => import('./../components/Standing'));
-const TopScorers = React.lazy(() => import('./../components/TopScorers'));
+const Information = React.lazy(() => import("./../components/Information"));
+const Standing = React.lazy(() => import("./../components/Standing"));
+const TopScorers = React.lazy(() => import("./../components/TopScorers"));
 
 function Summary ({ match }) {
   return (

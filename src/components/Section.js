@@ -1,15 +1,23 @@
 import React from 'react';
-import { Heading, Box} from 'rebass';
+import PropTypes from 'prop-types';
+import { Heading, Box } from 'rebass';
 
-function Section (props) {
+function Section(props) {
+  const { title, children } = props;
   return (
-    <React.Fragment>
-      <Box mb={[ 4, 5 ]} {...props}>
-        <Heading fontWeight='bold' mb={4}>{props.title}</Heading>
-        {props.children}
-      </Box>
-    </React.Fragment>
-  )
+    <Box mb={[4, 5]} title={title}>
+      <Heading fontFamily="inherit" fontWeight="bold" mb={4}>{title}</Heading>
+      {children}
+    </Box>
+  );
 }
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array,
+  ]).isRequired,
+};
 
 export default Section;
