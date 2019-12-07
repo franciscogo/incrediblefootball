@@ -9,7 +9,7 @@ import Loading from './Loading';
 
 function Information(props) {
   const { id } = props;
-  const information = useConnection(`http://api.football-data.org/v2/competitions/${id}/?plan=TIER_ONE`);
+  const information = useConnection(`https://api.football-data.org/v2/competitions/${id}/?plan=TIER_ONE`);
 
   if (information === null) {
     return <Loading />;

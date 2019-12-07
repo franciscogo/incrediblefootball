@@ -5,7 +5,7 @@ import useConnection from '../utils';
 import Loading from './Loading';
 
 function Leagues() {
-  const leagues = useConnection('http://api.football-data.org/v2/competitions/?plan=TIER_ONE');
+  const leagues = useConnection('https://api.football-data.org/v2/competitions/?plan=TIER_ONE');
 
   if (leagues === null) {
     return <Loading />;

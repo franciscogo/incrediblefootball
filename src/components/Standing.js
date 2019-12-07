@@ -168,7 +168,7 @@ function handleCompetition(content) {
 
 function Standing(props) {
   const { id } = props;
-  const standing = useConnection(`http://api.football-data.org/v2/competitions/${id}/standings?plan=TIER_ONE`);
+  const standing = useConnection(`https://api.football-data.org/v2/competitions/${id}/standings?plan=TIER_ONE`);
 
   if (standing === null) {
     return <Loading />;
